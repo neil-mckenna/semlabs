@@ -6,6 +6,20 @@ public class SQLApp
 {
     public static void main(String[] args)
     {
+
+
+    } // main
+
+    /**
+     * Connection to MySQL database.
+     */
+    private Connection con = null;
+
+    /**
+     * Connect to the MySQL database.
+     */
+    public void connect()
+    {
         try
         {
             // Load Database driver
@@ -17,9 +31,7 @@ public class SQLApp
             System.exit(-1);
         }
 
-        // Connection to the database
-        Connection con = null;
-        int retries = 100;
+        int retries = 10;
         for (int i = 0; i < retries; ++i)
         {
             System.out.println("Connecting to database...");
@@ -30,9 +42,6 @@ public class SQLApp
                 // Connect to database
                 con = DriverManager.getConnection("jdbc:mysql://db:3306/employees?useSSL=false", "root", "example");
                 System.out.println("Successfully connected");
-                // Wait a bit
-                Thread.sleep(10000);
-                // Exit for loop
                 break;
             }
             catch (SQLException sqle)
@@ -45,12 +54,20 @@ public class SQLApp
                 System.out.println("Thread interrupted? Should not happen.");
             }
         }
+    }
 
+    /**
+     * Disconnect from the MySQL database.
+     */
+    public void disconnect()
+    {
+        System.out.println("Attempting to close the connection!");
         if (con != null)
         {
             try
             {
                 // Close connection
+                System.out.println("Closing the connection!");
                 con.close();
             }
             catch (Exception e)
