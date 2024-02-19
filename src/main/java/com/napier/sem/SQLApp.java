@@ -41,7 +41,7 @@ public class SQLApp
                 Thread.sleep(30000);
                 // Connect to database
                 con = DriverManager.getConnection("jdbc:mysql://db:3306/employees?useSSL=false", "root", "example");
-                System.out.println("Successfully connected");
+                System.out.println("Successfully connected on App");
                 break;
             }
             catch (SQLException sqle)
